@@ -12,7 +12,7 @@ var server = http.createServer(function(req, res) {
 
     // Get the path from the url
     var path = parsedUrl.pathname; 
-    var trimmedPath = path.replace(/^\+|\/+$/g, '');
+    var trimmedPath = path.replace(/^\/+|\/+$/g,'');
 
     // Get the query string as an object
     var queryStringObject = parsedUrl.query;
@@ -20,11 +20,14 @@ var server = http.createServer(function(req, res) {
     // Get HTTP method
     var method = req.method.toLowerCase();
 
+    // Get the headers as an object 
+    var headers = req.headers;
+
     // Send the response
     res.end('Hello world\n');
 
     // Log the requested path
-    console.log('Request recieved on this path:' + trimmedPath + ' with method: ' + method + ' and with these query string parameters', queryStringObject);
+    console.log('Request recieved with these headers', headers);
 
 });
 
