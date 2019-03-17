@@ -36,12 +36,40 @@ var server = http.createServer(function(req, res) {
     req.on('end', function() {
         buffer += decoder.end();
 
-        // Now that the request has finished we want to continue what we were doing before
-        // Send the response
-        res.end('Hello world\n');
+        // Choose the handler this request should go to
+        var chosenHandler = typeof(router[trimmedPath]) !== 'undefined' ? router[trimmedPath] : handlers.notFound;
 
-        // Log the requested path
-        console.log('Request recieved with this payload:', buffer);
+        // Construct the data object to send to the handler.
+        var data = {
+            'trimmedPath': trimmedPath,
+            'queryStringObject': queryStringObject,
+            'method': method,
+            'headers': headers,
+            'payload': buffer
+         };
+        // // console.log(chosenHandler)
+
+        // Construct the data object to return to handler
+        var data = {
+            'trimmedPath': trimmedPath,
+            'queryStringObject': queryStringObject,
+            'method': method,
+            'headers': headers,
+            'payload': buffer
+        }
+
+        // Route the request specified to the in the router
+        chosenHandler(data, function(statusCode, payload) {
+            statusCode = typeof(statusCode == 'number') ? statusCode : 200;
+            payload = typeof(payload) == 'object' ? payload : {};
+            var payloadString = JSON.stringify(payload);
+            // res.setHeader('Content-Type', 'application/json');
+            res.writeHead(statusCode);
+            res.end(payloadString);
+            console.log('Returning this payload responce.', statusCode, payloadString);
+
+        })
+        
     });
     // Since every request will not have a payload that doesn't mean that our end function won't be called
     // The end event will always be called but the data event will not always be called. If there is no payload
@@ -54,3 +82,22 @@ var server = http.createServer(function(req, res) {
 server.listen(3000, function() {
     console.log('The server is listening on port 3000');
 });
+
+// Define handlers
+var handlers = {};
+
+// Define sample handlers
+handlers.sample = function(data, callback) {
+    // Callback a http statuscode and a payload object
+    callback(406, {'name': 'sample handler'})
+
+};
+
+// Not found handlers 
+handlers.notFound = function(data, callback) {
+    callback(404);
+}
+
+var router = {
+    'sample': handlers.sample
+};
