@@ -102,7 +102,7 @@ var unifiedServer = function(req, res) {
 // Define handlers
 var handlers = {};
 
-// 
+// Will return a success if everything is running
 handlers.ping = function(data, callback) {
     callback(200);
 };
