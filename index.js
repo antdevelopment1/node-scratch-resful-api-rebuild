@@ -19,7 +19,7 @@ var helpers = require('./lib/helpers');
 
 
 // @TODO Get rid of this
-helpers.sendTwilioSms('4152344567', 'Hello!',function(err) {
+helpers.sendTwilioSms('4158375309', 'Hello!',function(err) {
   console.log('thiis was the error', err);
 })
 
