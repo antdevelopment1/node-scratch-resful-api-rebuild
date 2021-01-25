@@ -17,6 +17,12 @@ var helpers = require('./lib/helpers');
 //     console.log('this was the error',err);
 // })
 
+
+// @TODO Get rid of this
+helpers.sendTwilioSms('4152344567', 'Hello!',function(err) {
+  console.log('thiis was the error', err);
+})
+
 // Instantiating the http server
 var httpServer = http.createServer(function(req, res) {
     unifiedServer(req, res);
@@ -103,3 +109,82 @@ var router = {
     'tokens': handlers.tokens,
     'checks': handlers.checks
 };
+
+
+// // this first function is getUserChoice
+// function getUserChoice (userString) {
+//     // console.log(userString);
+//     // get the UserInput and converts to .toLowerCase() 
+//     userString = userString.toLowerCase();
+//     // console.log(userString);
+//     // comparing userInput between available options
+//     if (userString === "rock" || userString === "scissors"  || userString === "paper") {
+//         return userString ;
+//     } else {
+//         console.log("invalid response")
+//         return "that won't work";
+//     }
+// }
+
+
+
+// // the second function is getComputerChoice
+
+// function getComputerChoice () {
+//     // generate random number between 0-2
+//     const computerInput = Math.floor(Math.random() * 3);
+//     const compSent = "The computer answered was";
+//     switch(computerInput) {
+//         case 0:
+//          text: "rock";
+//          return "rock";
+//           // code block 
+//           break;
+//         case 1:
+//             text: "paper";
+//             return "paper";
+//           // code block
+//           break;
+//         case 2:
+//             text: "scissors"
+//             return "scissors";
+//           // code block
+//           break;
+//         default: 
+//           // code block
+//     }
+// }
+// // console.log(getComputerChoice());
+
+// // the third function determinesWinner
+
+// function determinesWinner(userChoice, compChoice) {
+//   if (userChoice === compChoice) {
+//     return `The user ansered ${userChoice} and the computer answered ${compChoice}. It was a draw` ;
+//   } 
+//   if (userChoice === "rock" && compChoice === "scissors") {
+//     return `The user ansered ${userChoice} and the computer answered ${compChoice}. You Won`;
+//   }
+//   if (userChoice === "rock" && compChoice === "paper") {
+//     return `The user entered ${userChoice}. The computer entered ${compChoice}. You lost`;
+//   }
+//   if (userChoice === "paper" && compChoice === "scissors") {
+//     return `The user entered ${userChoice}. The computer entered ${compChoice}. You lost`;
+//   }
+//   if (userChoice === "paper" && compChoice === "rock") {
+//     return `The user enttered ${userChoice}. The computer entered ${compChoice}. You won`;
+//   }
+//   if (userChoice === "scissors" && compChoice === "rock") {
+//     return `The user enttered ${userChoice}. The computer entered ${compChoice}. You lost`;
+//   }
+//   if (userChoice === "scissors" && compChoice === "paper") {
+//     return `The user enttered ${userChoice}. The computer entered ${compChoice}. You Won`;
+//   }  
+// }
+
+// console.log(determinesWinner(getUserChoice(userChoiceValue), getComputerChoice()))
+
+
+// var userChoiceValue = "paper";
+
+
